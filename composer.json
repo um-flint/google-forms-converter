@@ -1,0 +1,21 @@
+{
+  "name": "um-flint/google-forms-converter",
+  "description": "Take Google Forms and covert them to HTML.",
+  "keywords": [
+    "google",
+    "forms"
+  ],
+  "type": "package",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Donald Wilcox",
+      "email": "dowilcox@umich.edu"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "UMFlint\\GoogleFormsConverter\\": "src/"
+    }
+  }
+}
