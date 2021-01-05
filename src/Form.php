@@ -21,7 +21,46 @@ class Form
     /**
      * @var string
      */
-    protected string $fbzx;
+    public string $fbzx;
+
+    /**
+     * @var string
+     */
+    public string $title;
+
+    /**
+     * @var string
+     */
+    public string $path;
+
+    /**
+     * @var string
+     */
+    public string $action;
+
+    /**
+     * @var string
+     */
+    public string $description;
+
+    /**
+     * @var string
+     */
+    public string $header;
+
+    /**
+     * @var int
+     */
+    public int $sectionCount = 1;
+
+    /**
+     * @var array
+     */
+    public array $fields = [];
+
+    public static array $fieldTypes = [
+
+    ];
 
     /**
      * Form constructor.
@@ -111,6 +150,14 @@ class Form
         $rawForm = $this->getForm();
         $this->parseForm($rawForm);
         $this->parseFbzx($rawForm);
+
+        $this->title = $this->form[3];
+        $this->path = $this->form[2];
+        $this->action = $this->form[14];
+        $this->description = $this->form[1][0];
+        $this->header = $this->form[1][8];
+        //$this->sectionCount = 1;
+        // Loop through fields here to get better idea of sectionCount.
 
         print_r($this->form);
         exit;
