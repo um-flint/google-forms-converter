@@ -44,9 +44,9 @@ class Form
     public string $description;
 
     /**
-     * @var string
+     * @var string|null
      */
-    public string $header;
+    public ?string $header;
 
     /**
      * @var int
@@ -58,8 +58,24 @@ class Form
      */
     public array $fields = [];
 
+    /**
+     * @var array|int[]
+     */
     public static array $fieldTypes = [
-
+        'FieldShort'      => 0,
+        'FieldParagraph'  => 1,
+        'FieldChoices'    => 2,
+        'FieldDropdown'   => 3,
+        'FieldCheckboxes' => 4,
+        'FieldLinear'     => 5,
+        'FieldTitle'      => 6,
+        'FieldGrid'       => 7,
+        'FieldSection'    => 8,
+        'FieldDate'       => 9,
+        'FieldTime'       => 10,
+        'FieldImage'      => 11,
+        'FieldVideo'      => 12,
+        'FieldUpload'     => 13,
     ];
 
     /**
@@ -145,11 +161,34 @@ class Form
         return $this;
     }
 
+    /**
+     * @return $this
+     * @throws \Exception
+     */
+    protected function parseFields(): self
+    {
+        foreach ($this->form[1][1] as $data) {
+            $field = new Field($data[0], $data[1], $data[2], $data[3]);
+
+            switch ($field->typeId) {
+                case self::$fieldTypes['FieldShort']:
+                case self::$fieldTypes['FieldParagraph']:
+                    $widget = new Widget($data[4][0][0], $data[4][0][2]);
+                    $field->setWidgets([$widget]);
+            }
+
+            $this->fields[] = $field;
+        }
+
+        return $this;
+    }
+
     public function build(): string
     {
         $rawForm = $this->getForm();
         $this->parseForm($rawForm);
         $this->parseFbzx($rawForm);
+        $this->parseFields();
 
         $this->title = $this->form[3];
         $this->path = $this->form[2];
@@ -159,7 +198,8 @@ class Form
         //$this->sectionCount = 1;
         // Loop through fields here to get better idea of sectionCount.
 
-        print_r($this->form);
+        echo "<pre>";
+        print_r($this->fields);
         exit;
 
         $form = '';
