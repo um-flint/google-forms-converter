@@ -175,6 +175,31 @@ class Form
                 case self::$fieldTypes['FieldParagraph']:
                     $widget = new Widget($data[4][0][0], $data[4][0][2]);
                     $field->setWidgets([$widget]);
+                    break;
+                case self::$fieldTypes['FieldChoices']:
+                case self::$fieldTypes['FieldCheckboxes']:
+                case self::$fieldTypes['FieldDropdown']:
+                    $options = [];
+                    foreach ($data[4][0][1] as $optionData) {
+                        $optionInfo = [
+                            'label' => $optionData[0]
+                        ];
+
+                        // Handle the case for missing information in option object
+                        if (count($optionData) > 2) {
+                            $optionInfo['href'] = $optionData[2];
+                        }
+
+                        if (count($optionData) > 4) {
+                            $optionInfo['custom'] = $optionData[4];
+                        }
+
+                        $options[] = $optionInfo;
+                    }
+
+                    $widget = new Widget($data[4][0][0], $data[4][0][2], $options);
+                    $field->setWidgets([$widget]);
+                    break;
             }
 
             $this->fields[] = $field;

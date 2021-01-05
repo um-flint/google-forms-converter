@@ -14,9 +14,21 @@ class Widget
      */
     public bool $required;
 
-    public function __construct(string $id, bool $required)
+    /**
+     * @var array|null
+     */
+    public ?array $options;
+
+    /**
+     * Widget constructor.
+     * @param string $id
+     * @param bool $required
+     * @param array|null $options
+     */
+    public function __construct(string $id, bool $required, ?array $options = null)
     {
         $this->id = $id;
         $this->required = $required;
+        $this->options = $options;
     }
 }
