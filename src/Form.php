@@ -62,20 +62,20 @@ class Form
      * @var array|int[]
      */
     public static array $fieldTypes = [
-        'FieldShort'      => 0,
-        'FieldParagraph'  => 1,
-        'FieldChoices'    => 2,
-        'FieldDropdown'   => 3,
-        'FieldCheckboxes' => 4,
-        'FieldLinear'     => 5,
-        'FieldTitle'      => 6,
-        'FieldGrid'       => 7,
-        'FieldSection'    => 8,
-        'FieldDate'       => 9,
-        'FieldTime'       => 10,
-        'FieldImage'      => 11,
-        'FieldVideo'      => 12,
-        'FieldUpload'     => 13,
+        'short'      => 0,
+        'paragraph'  => 1,
+        'choices'    => 2,
+        'dropdown'   => 3,
+        'checkboxes' => 4,
+        'linear'     => 5,
+        'title'      => 6,
+        'grid'       => 7,
+        'section'    => 8,
+        'date'       => 9,
+        'time'       => 10,
+        'image'      => 11,
+        'video'      => 12,
+        'upload'     => 13,
     ];
 
     /**
@@ -171,14 +171,14 @@ class Form
             $field = new Field($data[0], $data[1], $data[2], $data[3]);
 
             switch ($field->typeId) {
-                case self::$fieldTypes['FieldShort']:
-                case self::$fieldTypes['FieldParagraph']:
+                case self::$fieldTypes['short']:
+                case self::$fieldTypes['paragraph']:
                     $widget = new Widget($data[4][0][0], $data[4][0][2]);
                     $field->setWidgets([$widget]);
                     break;
-                case self::$fieldTypes['FieldChoices']:
-                case self::$fieldTypes['FieldCheckboxes']:
-                case self::$fieldTypes['FieldDropdown']:
+                case self::$fieldTypes['choices']:
+                case self::$fieldTypes['checkboxes']:
+                case self::$fieldTypes['dropdown']:
                     $options = [];
                     foreach ($data[4][0][1] as $optionData) {
                         $optionInfo = [
@@ -200,7 +200,7 @@ class Form
                     $widget = new Widget($data[4][0][0], $data[4][0][2], $options);
                     $field->setWidgets([$widget]);
                     break;
-                case self::$fieldTypes['FieldLinear']:
+                case self::$fieldTypes['linear']:
                     $options = [];
                     foreach ($data[4][0][1] as $optionData) {
                         $options[] = [
@@ -214,7 +214,7 @@ class Form
                     ]);
                     $field->setWidgets([$widget]);
                     break;
-                case self::$fieldTypes['FieldGrid']:
+                case self::$fieldTypes['grid']:
                     $widgets = [];
                     foreach ($data[4] as $widgetItem) {
                         $columns = [];
@@ -227,20 +227,20 @@ class Form
                     }
                     $field->setWidgets($widgets);
                     break;
-                case self::$fieldTypes['FieldDate']:
+                case self::$fieldTypes['date']:
                     $widget = new Widget($data[4][0][0], $data[4][0][2], [
                         'time' => $data[4][0][7][0],
                         'year' => $data[4][0][7][1],
                     ]);
                     $field->setWidgets([$widget]);
                     break;
-                case self::$fieldTypes['FieldTime']:
+                case self::$fieldTypes['time']:
                     $widget = new Widget($data[4][0][0], $data[4][0][2], [
                         'duration' => $data[4][0][6][0],
                     ]);
                     $field->setWidgets([$widget]);
                     break;
-                case self::$fieldTypes['FieldVideo']:
+                case self::$fieldTypes['video']:
                     $widget = new Widget($data[6][0], false, [
                         'w'        => $data[4][0][6][2][0],
                         'h'        => $data[4][0][6][2][1],
@@ -248,7 +248,7 @@ class Form
                     ]);
                     $field->setWidgets([$widget]);
                     break;
-                case self::$fieldTypes['FieldImage']:
+                case self::$fieldTypes['image']:
                     $widget = new Widget($data[6][0], false, [
                         'w'        => $data[4][0][6][2][0],
                         'h'        => $data[4][0][6][2][1],
@@ -256,7 +256,7 @@ class Form
                     ]);
                     $field->setWidgets([$widget]);
                     break;
-                case self::$fieldTypes['FieldUpload']:
+                case self::$fieldTypes['upload']:
                     $widget = new Widget($data[4][0][0], $data[4][0][2], [
                         'types'          => $data[4][0][10][1],
                         'maxUploads'     => $data[4][0][10][2],
