@@ -20,9 +20,9 @@ class Field
     public ?string $description;
 
     /**
-     * @var int
+     * @var string
      */
-    public int $typeId;
+    public string $type;
 
     /**
      * @var array
@@ -34,14 +34,14 @@ class Field
      * @param int $id
      * @param string $label
      * @param string|null $description
-     * @param int $typeId
+     * @param string $type
      */
-    public function __construct(int $id, string $label, ?string $description, int $typeId)
+    public function __construct(int $id, string $label, ?string $description, string $type)
     {
         $this->id = $id;
         $this->label = $label;
         $this->description = $description;
-        $this->typeId = $typeId;
+        $this->type = $type;
     }
 
     /**

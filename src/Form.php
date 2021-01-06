@@ -168,9 +168,9 @@ class Form
     protected function parseFields(): self
     {
         foreach ($this->form[1][1] as $data) {
-            $field = new Field($data[0], $data[1], $data[2], $data[3]);
+            $field = new Field($data[0], $data[1], $data[2], array_search($data[3], self::$fieldTypes));
 
-            switch ($field->typeId) {
+            switch ($data[3]) {
                 case self::$fieldTypes['short']:
                 case self::$fieldTypes['paragraph']:
                     $widget = new Widget($data[4][0][0], $data[4][0][2]);
