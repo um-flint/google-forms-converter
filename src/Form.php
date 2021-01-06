@@ -295,6 +295,7 @@ class Form
         return [
             'path'         => $this->path,
             'action'       => $this->action,
+            'fbzx'         => $this->fbzx,
             'title'        => $this->title,
             'description'  => $this->description,
             'header'       => $this->header,
