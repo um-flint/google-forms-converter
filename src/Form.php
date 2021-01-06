@@ -264,6 +264,9 @@ class Form
                     ]);
                     $field->setWidgets([$widget]);
                     break;
+                case self::$fieldTypes['section']:
+                    $this->sectionCount++;
+                    break;
             }
 
             $this->fields[] = $field;
@@ -272,7 +275,11 @@ class Form
         return $this;
     }
 
-    public function build(): string
+    /**
+     * @return array
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function build(): array
     {
         $rawForm = $this->getForm();
         $this->parseForm($rawForm);
@@ -284,15 +291,15 @@ class Form
         $this->action = $this->form[14];
         $this->description = $this->form[1][0];
         $this->header = $this->form[1][8];
-        //$this->sectionCount = 1;
-        // Loop through fields here to get better idea of sectionCount.
 
-        echo "<pre>";
-        print_r($this->fields);
-        exit;
-
-        $form = '';
-
-        return $form;
+        return [
+            'path'         => $this->path,
+            'action'       => $this->action,
+            'title'        => $this->title,
+            'description'  => $this->description,
+            'header'       => $this->header,
+            'sectionCount' => $this->sectionCount,
+            'fields'       => $this->fields,
+        ];
     }
 }
