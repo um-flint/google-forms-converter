@@ -200,6 +200,70 @@ class Form
                     $widget = new Widget($data[4][0][0], $data[4][0][2], $options);
                     $field->setWidgets([$widget]);
                     break;
+                case self::$fieldTypes['FieldLinear']:
+                    $options = [];
+                    foreach ($data[4][0][1] as $optionData) {
+                        $options[] = [
+                            'label' => $optionData[0],
+                        ];
+                    }
+
+                    $widget = new Widget($data[4][0][0], $data[4][0][2], $options, [
+                        'first' => $data[4][0][3][0],
+                        'last'  => $data[4][0][3][1],
+                    ]);
+                    $field->setWidgets([$widget]);
+                    break;
+                case self::$fieldTypes['FieldGrid']:
+                    $widgets = [];
+                    foreach ($data[4] as $widgetItem) {
+                        $columns = [];
+                        foreach ($widgetItem[1] as $columnItem) {
+                            $columns[] = [
+                                'label' => $columnItem[0]
+                            ];
+                        }
+                        $widgets[] = new Widget($data[4][0][0], $data[4][0][2], null, null, $columns, $widgetItem[3][0]);
+                    }
+                    $field->setWidgets($widgets);
+                    break;
+                case self::$fieldTypes['FieldDate']:
+                    $widget = new Widget($data[4][0][0], $data[4][0][2], [
+                        'time' => $data[4][0][7][0],
+                        'year' => $data[4][0][7][1],
+                    ]);
+                    $field->setWidgets([$widget]);
+                    break;
+                case self::$fieldTypes['FieldTime']:
+                    $widget = new Widget($data[4][0][0], $data[4][0][2], [
+                        'duration' => $data[4][0][6][0],
+                    ]);
+                    $field->setWidgets([$widget]);
+                    break;
+                case self::$fieldTypes['FieldVideo']:
+                    $widget = new Widget($data[6][0], false, [
+                        'w'        => $data[4][0][6][2][0],
+                        'h'        => $data[4][0][6][2][1],
+                        'showText' => $data[4][0][6][2][2],
+                    ]);
+                    $field->setWidgets([$widget]);
+                    break;
+                case self::$fieldTypes['FieldImage']:
+                    $widget = new Widget($data[6][0], false, [
+                        'w'        => $data[4][0][6][2][0],
+                        'h'        => $data[4][0][6][2][1],
+                        'showText' => $field->description !== '',
+                    ]);
+                    $field->setWidgets([$widget]);
+                    break;
+                case self::$fieldTypes['FieldUpload']:
+                    $widget = new Widget($data[4][0][0], $data[4][0][2], [
+                        'types'          => $data[4][0][10][1],
+                        'maxUploads'     => $data[4][0][10][2],
+                        'maxSizeInBytes' => $data[4][0][10][3],
+                    ]);
+                    $field->setWidgets([$widget]);
+                    break;
             }
 
             $this->fields[] = $field;
