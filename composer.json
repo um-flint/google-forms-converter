@@ -9,7 +9,7 @@
   "license": "MIT",
   "require": {
     "php": ">=7.4",
-    "guzzlehttp/guzzle": "^7.0",
+    "guzzlehttp/guzzle": "^7.0||^6.0",
     "ext-dom": "*"
   },
   "authors": [
