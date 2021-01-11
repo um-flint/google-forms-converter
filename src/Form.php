@@ -49,6 +49,11 @@ class Form
     public ?string $header;
 
     /**
+     * @var bool
+     */
+    public bool $askEmail = false;
+
+    /**
      * @var int
      */
     public int $sectionCount = 1;
@@ -292,6 +297,10 @@ class Form
         $this->description = $this->form[1][0];
         $this->header = $this->form[1][8];
 
+        if ($this->form[1][10] && count($this->form[1][10]) >= 4) {
+            $this->askEmail = $this->form[1][10][4] === 1;
+        }
+
         return [
             'path'         => $this->path,
             'action'       => $this->action,
@@ -300,6 +309,7 @@ class Form
             'description'  => $this->description,
             'header'       => $this->header,
             'sectionCount' => $this->sectionCount,
+            'askEmail'     => $this->askEmail,
             'fields'       => $this->fields,
         ];
     }
