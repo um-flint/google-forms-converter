@@ -39,9 +39,9 @@ class Form
     public string $action;
 
     /**
-     * @var string
+     * @var string|null
      */
-    public string $description;
+    public ?string $description;
 
     /**
      * @var string|null
