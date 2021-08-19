@@ -156,7 +156,7 @@ class Form
     {
         $xp = new DOMXpath($form);
         $nodes = $xp->query('//input[@name="fbzx"]');
-        if (!$nodes) {
+        if ($nodes->length === 0) {
             throw new \Exception('Invalid form! Could not find the fbzx field.');
         }
 
